@@ -56,6 +56,18 @@ cursor = {
 				"w-resize"
 			],
 			hotspot: center_coordinate
+		},
+		{
+			name: "nwse-resize",
+			files: [
+				"bottom_right_corner",
+				"nw-resize",
+				"nwse-resize",
+				"se-resize",
+				"size_fdiag",
+				"top_left_corner"
+			],
+			hotspot: center_coordinate
 		}
 	]
 }
@@ -115,7 +127,7 @@ def create_cursor(
 			part_file = File.join(parts_directory, file)
 			File.write(settings_file, "#{cursor[:size]} #{part[:hotspot][:x] * cursor[:scale]} #{part[:hotspot][:y] * cursor[:scale]} #{image_file} 0")
 			system("xcursorgen #{settings_file} #{part_file}")
-			puts("\tCreated part file #{part[:name]} -> #{file}.")
+			puts("\tCreated part file #{part[:name]} => #{file}.")
 		end
 	end
 	FileUtils.rm_rf(settings_file)
