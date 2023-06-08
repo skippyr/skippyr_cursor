@@ -21,6 +21,11 @@ cursor = {
 			name: "left_ptr",
 			files: ["left_ptr", "right_ptr", "pointing_hand"],
 			hotspot: corner_coordinate
+		},
+		{
+			name: "hand2",
+			files: ["hand2", "hand1", "hand"],
+			hotspot: corner_coordinate
 		}
 	]
 }
@@ -63,6 +68,7 @@ end
 def create_cursor(
 	distributions_directory,
 	distributions_images_directory,
+	license_file,
 	cursor
 )
 	cursor_directory = File.join(distributions_directory, cursor[:name])
@@ -83,10 +89,16 @@ def create_cursor(
 		end
 	end
 	FileUtils.rm_rf(settings_file)
+	FileUtils.cp(license_file, cursor_directory)
 	puts("Created cursor at: #{cursor_directory}.")
 end
 
 FileUtils.rm_rf(distributions_directory)
 create_images(source_images_directory, distributions_images_directory, cursor)
-create_cursor(distributions_directory, distributions_images_directory, cursor)
+create_cursor(
+	distributions_directory,
+	distributions_images_directory,
+	license_file,
+	cursor
+)
 
