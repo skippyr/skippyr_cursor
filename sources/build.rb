@@ -113,6 +113,17 @@ $cursor = {
 			name: "vertical-text",
 			files: ["vertical-text"],
 			hotspot: center_coordinate
+		},
+		{
+			name: "watch",
+			files: [
+				"watch",
+				"wait",
+				"progress",
+				"half-busy",
+				"left_ptr_watch"
+			],
+			hotspot: corner_coordinate
 		}
 	]
 }
