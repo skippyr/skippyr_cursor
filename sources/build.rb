@@ -108,6 +108,11 @@ $cursor = {
 				"question_arrow"
 			],
 			hotspot: corner_coordinate
+		},
+		{
+			name: "vertical-text",
+			files: ["vertical-text"],
+			hotspot: center_coordinate
 		}
 	]
 }
