@@ -1,13 +1,13 @@
 require("fileutils")
 
-source_images_directory = File.join(__dir__, "images")
-repository_directory = File.dirname(__dir__)
-distributions_directory = File.join(repository_directory, "distributions")
-distributions_images_directory = File.join(distributions_directory, "images")
-license_file = File.join(repository_directory, "LICENSE")
+$source_images_directory = File.join(__dir__, "images")
+$repository_directory = File.dirname(__dir__)
+$distributions_directory = File.join($repository_directory, "distributions")
+$distributions_images_directory = File.join($distributions_directory, "images")
+$license_file = File.join($repository_directory, "LICENSE")
 corner_coordinate = {x: 4, y: 3}
 center_coordinate = {x: 15, y: 15}
-cursor = {
+$cursor = {
 	name: "skippyr_cursor",
 	size: 29,
 	scale: 2,
@@ -101,21 +101,17 @@ cursor = {
 	]
 }
 
-def create_images(
-	source_images_directory,
-	distributions_images_directory,
-	cursor
-)
-	layers_directory = File.join(distributions_images_directory, "layers")
-	FileUtils.rm_rf(distributions_images_directory)
+def create_images()
+	layers_directory = File.join($distributions_images_directory, "layers")
+	FileUtils.rm_rf($distributions_images_directory)
 	puts("Creating images:")
-	for source in Dir.children(source_images_directory)
+	for source in Dir.children($source_images_directory)
 		FileUtils.rm_rf(layers_directory)
 		FileUtils.mkdir_p(layers_directory)
-		source_path = File.join(source_images_directory, source)
+		source_path = File.join($source_images_directory, source)
 		source_without_extension = File.basename(source, File.extname(source))
 		layer_image = "#{File.join(layers_directory, source_without_extension)}.png"
-		system("convert #{source_path} -scale #{cursor[:size] * cursor[:scale]} #{layer_image}")
+		system("convert #{source_path} -scale #{$cursor[:size] * $cursor[:scale]} #{layer_image}")
 		composite = []
 		index = 0
 		for layer in Dir.children(layers_directory)
@@ -127,7 +123,7 @@ def create_images(
 			index += 1
 		end
 		image_file = "#{File.join(
-			distributions_images_directory,
+			$distributions_images_directory,
 			source_without_extension
 		)}.png"
 		system("convert #{composite.join(" ")} #{image_file}")
@@ -136,41 +132,34 @@ def create_images(
 	FileUtils.rm_rf(layers_directory)
 end
 
-def create_cursor(
-	distributions_directory,
-	distributions_images_directory,
-	license_file,
-	cursor
-)
-	cursor_directory = File.join(distributions_directory, cursor[:name])
+def create_cursor()
+	cursor_directory = File.join($distributions_directory, $cursor[:name])
 	parts_directory = File.join(cursor_directory, "cursors")
 	settings_file = File.join(cursor_directory, "settings.cfg")
 	metadata_file = File.join(cursor_directory, "index.theme")
 	FileUtils.rm_rf(cursor_directory)
 	FileUtils.mkdir_p(parts_directory)
-	File.write(metadata_file, "[Icon Theme]\nName=#{cursor[:name]}\n")
+	File.write(metadata_file, "[Icon Theme]\nName=#{$cursor[:name]}\n")
 	puts("Creating cursor part files:")
-	for part in cursor[:parts]
-		image_file = "#{File.join(distributions_images_directory, part[:name])}.png"
+	for part in $cursor[:parts]
+		image_file = "#{File.join($distributions_images_directory, part[:name])}.png"
 		for file in part[:files]
 			part_file = File.join(parts_directory, file)
-			File.write(settings_file, "#{cursor[:size]} #{part[:hotspot][:x] * cursor[:scale]} #{part[:hotspot][:y] * cursor[:scale]} #{image_file} 0")
+			File.write(
+				settings_file,
+				"#{$cursor[:size]} #{part[:hotspot][:x] * $cursor[:scale]} #{part[:hotspot][:y] * $cursor[:scale]} #{image_file} 0"
+			)
 			system("xcursorgen #{settings_file} #{part_file}")
 			puts("\tCreated part file #{part[:name]} => #{file}.")
 		end
 	end
 	FileUtils.rm_rf(settings_file)
-	FileUtils.cp(license_file, cursor_directory)
+	FileUtils.cp($license_file, cursor_directory)
 	puts("Created cursor at: #{cursor_directory}.")
 end
 
-puts("Building cursor #{cursor[:name]}.")
-FileUtils.rm_rf(distributions_directory)
-create_images(source_images_directory, distributions_images_directory, cursor)
-create_cursor(
-	distributions_directory,
-	distributions_images_directory,
-	license_file,
-	cursor
-)
+puts("Building cursor #{$cursor[:name]}.")
+FileUtils.rm_rf($distributions_directory)
+create_images()
+create_cursor()
 
