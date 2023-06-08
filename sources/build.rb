@@ -26,6 +26,36 @@ cursor = {
 			name: "hand2",
 			files: ["hand2", "hand1", "hand"],
 			hotspot: corner_coordinate
+		},
+		{
+			name: "ns-resize",
+			files: [
+				"bottom_side",
+				"n-resize",
+				"ns-resize",
+				"row-resize",
+				"s-resize",
+				"sb_v_double_arrow",
+				"size_ver",
+				"split_v",
+				"top_side"
+			],
+			hotspot: center_coordinate
+		},
+		{
+			name: "ew-resize",
+			files: [
+				"col-resize",
+				"e-resize",
+				"ew-resize",
+				"left_side",
+				"right_side",
+				"sb_h_double_arrow",
+				"size_hor",
+				"split_h",
+				"w-resize"
+			],
+			hotspot: center_coordinate
 		}
 	]
 }
@@ -60,7 +90,7 @@ def create_images(
 			source_without_extension
 		)}.png"
 		system("convert #{composite.join(" ")} #{image_file}")
-		puts("\tCreated image from #{source}.")
+		puts("\tCreated image of source #{source}.")
 	end
 	FileUtils.rm_rf(layers_directory)
 end
@@ -85,7 +115,7 @@ def create_cursor(
 			part_file = File.join(parts_directory, file)
 			File.write(settings_file, "#{cursor[:size]} #{part[:hotspot][:x] * cursor[:scale]} #{part[:hotspot][:y] * cursor[:scale]} #{image_file} 0")
 			system("xcursorgen #{settings_file} #{part_file}")
-			puts("\tCreated part file #{file}.")
+			puts("\tCreated part file #{part[:name]} -> #{file}.")
 		end
 	end
 	FileUtils.rm_rf(settings_file)
@@ -93,6 +123,7 @@ def create_cursor(
 	puts("Created cursor at: #{cursor_directory}.")
 end
 
+puts("Building cursor #{cursor[:name]}.")
 FileUtils.rm_rf(distributions_directory)
 create_images(source_images_directory, distributions_images_directory, cursor)
 create_cursor(
