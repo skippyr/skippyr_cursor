@@ -1,6 +1,8 @@
 <h1>Skippyr's Cursor</h1>
 	<h2>Starting Point</h2>
 		<p>A 58x58 pixels custom cursor for X11 (aka Linux) with my GitHub avatar.</p>
+		<p>Here is a quick preview.</p>
+		<img src="./images/preview.png"/>
 	<h2>Installation And Usage</h2>
 		<h3>Installing From Releases (recommended)</h3>
 			<p>By installing it this way, you do not have to build it. Follow these steps:</p>
