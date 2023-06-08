@@ -134,6 +134,16 @@ $cursor = {
 			name: "zoom-out",
 			files: ["zoom-out"],
 			hotspot: corner_coordinate
+		},
+		{
+			name: "not-allowed",
+			files: [
+				"dnd-no-drop",
+				"dnd-none",
+				"no-drop",
+				"not-allowed"
+			],
+			hotspot: corner_coordinate
 		}
 	]
 }
