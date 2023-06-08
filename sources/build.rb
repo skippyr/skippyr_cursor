@@ -68,6 +68,18 @@ cursor = {
 				"top_left_corner"
 			],
 			hotspot: center_coordinate
+		},
+		{
+			name: "nesw-resize",
+			files: [
+				"bottom_left_corner",
+				"ne-resize",
+				"nesw-resize",
+				"size_bdiag",
+				"sw-resize",
+				"top_right_corner"
+			],
+			hotspot: center_coordinate
 		}
 	]
 }
