@@ -6,10 +6,11 @@ distributions_directory = File.join(repository_directory, "distributions")
 distributions_images_directory = File.join(distributions_directory, "images")
 license_file = File.join(repository_directory, "LICENSE")
 corner_coordinate = {x: 4, y: 3}
-center_coordinate = {x: 26, y: 26}
+center_coordinate = {x: 15, y: 15}
 cursor = {
 	name: "skippyr_cursor",
-	size: 52,
+	size: 29,
+	scale: 2,
 	parts: [
 		{
 			name: "xterm",
@@ -24,7 +25,11 @@ cursor = {
 	]
 }
 
-def create_images(source_images_directory, distributions_images_directory)
+def create_images(
+	source_images_directory,
+	distributions_images_directory,
+	cursor
+)
 	layers_directory = File.join(distributions_images_directory, "layers")
 	FileUtils.rm_rf(distributions_images_directory)
 	puts("Creating images:")
@@ -34,7 +39,7 @@ def create_images(source_images_directory, distributions_images_directory)
 		source_path = File.join(source_images_directory, source)
 		source_without_extension = File.basename(source, File.extname(source))
 		layer_image = "#{File.join(layers_directory, source_without_extension)}.png"
-		system("convert #{source_path} #{layer_image}")
+		system("convert #{source_path} -scale #{cursor[:size] * cursor[:scale]} #{layer_image}")
 		composite = []
 		index = 0
 		for layer in Dir.children(layers_directory)
@@ -72,7 +77,7 @@ def create_cursor(
 		image_file = "#{File.join(distributions_images_directory, part[:name])}.png"
 		for file in part[:files]
 			part_file = File.join(parts_directory, file)
-			File.write(settings_file, "#{cursor[:size]} #{part[:hotspot][:x]} #{part[:hotspot][:y]} #{image_file} 0")
+			File.write(settings_file, "#{cursor[:size]} #{part[:hotspot][:x] * cursor[:scale]} #{part[:hotspot][:y] * cursor[:scale]} #{image_file} 0")
 			system("xcursorgen #{settings_file} #{part_file}")
 			puts("\tCreated part file #{file}.")
 		end
@@ -82,6 +87,6 @@ def create_cursor(
 end
 
 FileUtils.rm_rf(distributions_directory)
-create_images(source_images_directory, distributions_images_directory)
+create_images(source_images_directory, distributions_images_directory, cursor)
 create_cursor(distributions_directory, distributions_images_directory, cursor)
 
