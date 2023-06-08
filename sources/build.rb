@@ -94,9 +94,20 @@ $cursor = {
 				"cell",
 				"crosshair",
 				"move",
-				"fleur"
+				"fleur",
+				"plus"
 			],
 			hotspot: center_coordinate
+		},
+		{
+			name: "help",
+			files: [
+				"context-menu",
+				"dnd-ask",
+				"help",
+				"question_arrow"
+			],
+			hotspot: corner_coordinate
 		}
 	]
 }
