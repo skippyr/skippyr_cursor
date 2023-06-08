@@ -124,6 +124,16 @@ $cursor = {
 				"left_ptr_watch"
 			],
 			hotspot: corner_coordinate
+		},
+		{
+			name: "zoom-in",
+			files: ["zoom-in"],
+			hotspot: corner_coordinate
+		},
+		{
+			name: "zoom-out",
+			files: ["zoom-out"],
+			hotspot: corner_coordinate
 		}
 	]
 }
