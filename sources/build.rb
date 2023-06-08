@@ -5,6 +5,7 @@ repository_directory = File.dirname(__dir__)
 distributions_directory = File.join(repository_directory, "distributions")
 distributions_images_directory = File.join(distributions_directory, "images")
 license_file = File.join(repository_directory, "LICENSE")
+corner_coordinate = {x: 4, y: 3}
 center_coordinate = {x: 26, y: 26}
 cursor = {
 	name: "skippyr_cursor",
@@ -14,6 +15,11 @@ cursor = {
 			name: "xterm",
 			files: ["xterm", "text"],
 			hotspot: center_coordinate
+		},
+		{
+			name: "left_ptr",
+			files: ["left_ptr", "right_ptr", "pointing_hand"],
+			hotspot: corner_coordinate
 		}
 	]
 }
@@ -75,6 +81,7 @@ def create_cursor(
 	puts("Created cursor at: #{cursor_directory}.")
 end
 
+FileUtils.rm_rf(distributions_directory)
 create_images(source_images_directory, distributions_images_directory)
 create_cursor(distributions_directory, distributions_images_directory, cursor)
 
