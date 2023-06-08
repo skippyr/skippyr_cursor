@@ -24,7 +24,13 @@ cursor = {
 		},
 		{
 			name: "hand2",
-			files: ["hand2", "hand1", "hand"],
+			files: [
+				"hand2",
+				"hand1",
+				"hand",
+				"grab",
+				"openhand"
+			],
 			hotspot: corner_coordinate
 		},
 		{
@@ -78,6 +84,17 @@ cursor = {
 				"size_bdiag",
 				"sw-resize",
 				"top_right_corner"
+			],
+			hotspot: center_coordinate
+		},
+		{
+			name: "all-scroll",
+			files: [
+				"all-scroll",
+				"cell",
+				"crosshair",
+				"move",
+				"fleur"
 			],
 			hotspot: center_coordinate
 		}
