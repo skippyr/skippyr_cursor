@@ -39,9 +39,8 @@ mkdir -p ~/.local/share/icons
 cp -r distributions/skippyr_cursor ~/.local/share/icons
 					</code></pre>
 			</ul>
-	<h2>Issues And Contributions</h2>
-		<p>Issues can be reported through the <a href="https://github.com/skippyr/skippyr_cursor/issues">issues tab</a>.</p>
-		<p>Further more, learn how to contribute to this project by reading its <a href="https://skippyr.github.io/materials/pages/contributions_guidelines.html">contributions guidelines</a>.</p>
+	<h2>Issues And Suggestions</h2>
+		<p>Report issues and suggestions through the <a href="https://github.com/skippyr/skippyr_cursor/issues">issues tab</a>.
 	<h2>License</h2>
 		<p>This project is released under terms of the MIT License.</p>
 		<p>Copyright (c) 2023, Sherman Rofeman. MIT License.</p>
